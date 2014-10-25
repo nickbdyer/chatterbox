@@ -22,16 +22,17 @@ RESPONSES = { 'goodbye' => 'bye',
 @botprompt = 'BOT> '
 prompt = 'USER> '
 
-puts "#{@botprompt}Hello, what's your name?"
-print prompt
+puts "\e[31m#{@botprompt}Hello, what's your name?"
+print "\e[32m#{prompt}"
 name = gets.chomp
-puts "#{@botprompt} Hello #{name}"
-print "#{prompt}"
+puts "\e[31m#{@botprompt} Hello #{name}"
+print "\e[32m#{prompt}"
 while(input = gets.chomp) do
   if input == "quit" 
+    puts "\e[0m"
   	return exit
   else
-  	print "#{@botprompt}", get_response(input), "\n"
-    print "#{prompt}"
+  	print "\e[31m#{@botprompt}", get_response(input), "\n"
+    print "\e[32m#{prompt}"
   end
 end
