@@ -2,7 +2,7 @@ def get_response(input)
   key = RESPONSES.keys.select {|k| /#{k}/ =~ input }.sample
   /#{key}/ =~ input
   response = RESPONSES[key]
-  response.nil? ? 'sorry?' : response % { c1: $1, c2: $2}
+  response.nil? ? 'sorry?' : response % { c1: $1, c2: $2, c3: $3, c4: $4, c5: $5}
 end
 
 RESPONSES = { 'goodbye' => 'bye', 
@@ -14,7 +14,9 @@ RESPONSES = { 'goodbye' => 'bye',
           	  'I enjoy learning new (.*) in ruby' => 'Learning new %{c1} in ruby is great!',
           	  'I start at Makers on (.*)' => 'No way, so do I!',
           	  'What are you doing tomorrow, I\'m (.*) ' => 'I\'m %{c1} too',
-          	  'I learnt some thing about (.*) today!' => 'I already know about %{c1}' }
+          	  'I learnt some thing about (.*) today!' => 'I already know about %{c1}', 
+          	  'I have added (.*) more capture groups!' => 'What are you going to do with %{c1} more capture groups?',
+          	  'For lunch I am having a salad with (.*), (.*), (.*), (.*) and (.*)' => 'I like %{c2} and %{c3}, but hate %{c1}, %{c4} and %{c5}!' }
 
 puts "Hello, what's your name?"
 name = gets.chomp
