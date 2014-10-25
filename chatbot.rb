@@ -2,7 +2,7 @@ def get_response(input)
   key = RESPONSES.keys.select {|k| /#{k}/ =~ input }.sample
   /#{key}/ =~ input
   response = RESPONSES[key]
-  response.nil? ? "#{botprompt}sorry?" : response % { c1: $1, c2: $2, c3: $3, c4: $4, c5: $5}
+  response.nil? ? "#{@botprompt}sorry?" : response % { c1: $1, c2: $2, c3: $3, c4: $4, c5: $5}
 end
 
 RESPONSES = { 'goodbye' => 'bye', 
@@ -19,17 +19,19 @@ RESPONSES = { 'goodbye' => 'bye',
           	  'For lunch I am having a salad with (.*), (.*), (.*), (.*) and (.*)' => 'I like %{c2} and %{c3}, but hate %{c1}, %{c4} and %{c5}!',
           	   }
 
-botprompt = 'BOT> '
+@botprompt = 'BOT> '
 prompt = 'USER> '
 
-puts "#{botprompt}Hello, what's your name?"
+puts "#{@botprompt}Hello, what's your name?"
 print prompt
 name = gets.chomp
-puts "#{botprompt} Hello #{name}"
+puts "#{@botprompt} Hello #{name}"
+print "#{prompt}"
 while(input = gets.chomp) do
   if input == "quit" 
   	return exit
   else
-  	print "#{botprompt}", get_response(input)
+  	print "#{@botprompt}", get_response(input), "\n"
+    print "#{prompt}"
   end
 end
