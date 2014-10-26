@@ -1,8 +1,8 @@
 require 'CSV'
 
 @RESPONSES = {}
-@botprompt = 'BOT> '
-@prompt = 'USER> '
+@botprompt = "\e[31mBOT> "
+@prompt = "\e[32mUSER> "
 
 def get_response(input)
   key = @RESPONSES.keys.select {|k| /#{k}/ =~ input }.sample
@@ -12,21 +12,24 @@ def get_response(input)
 end
 
 def intro
-  puts "\e[31m#{@botprompt}Hello, what's your name?"
-  print "\e[32m#{@prompt}"
+  puts "#{@botprompt}Hello, what's your name?"
+  print "#{@prompt}"
   name = gets.chomp
-  puts "\e[31m#{@botprompt} Hello #{name}"
+  puts "#{@botprompt} Hello #{name}"
+end
+
+def menu
 end
 
 def interact
-  print "\e[32m#{@prompt}"
+  print "#{@prompt}"
   while(input = gets.chomp) do
     if input == "quit" 
       puts "\e[0m"
     	return exit
     else
-    	print "\e[31m#{@botprompt}", get_response(input), "\n"
-      print "\e[32m#{@prompt}"
+    	print "#{@botprompt}", get_response(input), "\n"
+      print "#{@prompt}"
     end
   end
 end
