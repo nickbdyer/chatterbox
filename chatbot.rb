@@ -23,9 +23,9 @@ def menu
   print "#{@prompt}"
   input = gets.chomp
   case input 
-  when 1
+  when "1"
     interact
-  when 2
+  when "2"
     create_interactions
   else
     interact
@@ -47,7 +47,7 @@ def interact
 end
 
 
-def save_responses(filename)
+def save_responses(filename = 'responses.csv')
   # open the file for writing
   CSV.open(filename, "w") do |file|
   # iterate over the array of responses
@@ -59,7 +59,7 @@ def save_responses(filename)
   puts "File saved." 
 end
 
-def load_responses(filename)
+def load_responses(filename = 'responses.csv')
   CSV.foreach(filename, "r") do |row|
       add_response(row[0], row[1])
   end
@@ -70,9 +70,25 @@ def add_response(phrase, response)
   @RESPONSES["#{phrase}"] = "#{response}"
 end
 
+def create_interactions
+  puts "#{@botprompt} You are now adding phrases, press return twice to exit."
+  until (phrase = gets.chomp).empty? 
+    puts "#{@botprompt} Enter Phrase"
+    print "#{@prompt}"
+    phrase = gets.chomp
+    puts "#{@botprompt} Enter Response"
+    print "#{@prompt}"
+    response = gets.chomp
+    add_response(phrase, response)
+  end 
+  save_responses
+  puts "\e[0m"
+  menu
+end
+
 
 def engine
-  load_responses('responses.csv')
+  load_responses
   intro
   menu
 end
