@@ -1,3 +1,5 @@
+require 'CSV'
+
 
 def get_response(input)
   key = RESPONSES.keys.select {|k| /#{k}/ =~ input }.sample
@@ -29,7 +31,7 @@ def interact
   end
 end
 
-@RESPONSES = { 'goodbye' => 'bye', 
+@RESPONSES = {'goodbye' => 'bye', 
               'sayonara' => 'sayonara', 
               'the weather is (.*)' => 'I hate it when it\'s %{c1}', 
               'I love (.*)' => 'I love %{c1} too', 
@@ -41,11 +43,11 @@ end
               'I learnt some thing about (.*) today!' => 'I already know about %{c1}', 
               'I have added (.*) more capture groups!' => 'What are you going to do with %{c1} more capture groups?',
               'For lunch I am having a salad with (.*), (.*), (.*), (.*) and (.*)' => 'I like %{c2} and %{c3}, but hate %{c1}, %{c4} and %{c5}!',
-               }
+}
 
 def save_responses(filename)
   # open the file for writing
-  File.open(filename, "w") do |file|
+  CSV.open(filename, "w") do |file|
   # iterate over the array of responses
     @RESPONSES.each do |k, v|
       response_data = ["#{k}", "#{v}"]
@@ -56,8 +58,8 @@ def save_responses(filename)
 end
 
 def load_responses(filename)
-  File.open(filename, "r") do |row|
-      add_student(row[0], row[1])
+  CSV.open(filename, "r") do |row|
+      add_response(row[0], row[1])
   end
 end
 
@@ -69,10 +71,9 @@ end
 
 
 def engine
-  load_responses(responses.rb)
+  load_responses('responses.csv')
   intro
   get_response
 end
 
-save_responses('responses.rb')
-
+save_responses('responses.csv')
