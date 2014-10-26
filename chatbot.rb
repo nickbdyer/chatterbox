@@ -1,6 +1,8 @@
 require 'CSV'
 
 @RESPONSES = {}
+@botprompt = 'BOT> '
+@prompt = 'USER> '
 
 def get_response(input)
   key = @RESPONSES.keys.select {|k| /#{k}/ =~ input }.sample
@@ -8,9 +10,6 @@ def get_response(input)
   response = @RESPONSES[key]
   response.nil? ? "sorry?" : response % { c1: $1, c2: $2, c3: $3, c4: $4, c5: $5}
 end
-
-@botprompt = 'BOT> '
-@prompt = 'USER> '
 
 def intro
   puts "\e[31m#{@botprompt}Hello, what's your name?"
@@ -31,7 +30,6 @@ def interact
     end
   end
 end
-
 
 
 def save_responses(filename)
