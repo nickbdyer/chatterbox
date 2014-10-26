@@ -62,9 +62,7 @@ end
 def engine
   load_responses('responses.csv')
   intro
-  get_response
+  interact
 end
 
-# save_responses('responses.csv')
-load_responses('responses.csv')
-interact
+engine
