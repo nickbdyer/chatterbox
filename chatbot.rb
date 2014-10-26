@@ -19,6 +19,18 @@ def intro
 end
 
 def menu
+  puts "#{@botprompt} Press 1 to Interact, Press 2 to save new interactions."
+  print "#{@prompt}"
+  input = gets.chomp
+  case input 
+  when 1
+    interact
+  when 2
+    create_interactions
+  else
+    interact
+  end
+
 end
 
 def interact
@@ -59,11 +71,10 @@ def add_response(phrase, response)
 end
 
 
-
 def engine
   load_responses('responses.csv')
   intro
-  interact
+  menu
 end
 
 engine
