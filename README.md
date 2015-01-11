@@ -11,5 +11,5 @@
 
 ###Run Program
 ```sh
-$ ruby chatbox.rb
+$ ruby chatbot.rb
 ```
